@@ -1,0 +1,18 @@
+{
+  "name": "darvi-billing-prototype",
+  "version": "0.6.0",
+  "description": "Darvi Billing System with Seznik 2POS 58mm Thermal Bluetooth Printing",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "billing",
+    "pos",
+    "thermal-printer",
+    "seznik"
+  ],
+  "author": "Darvi Group",
+  "license": "ISC"
+}
