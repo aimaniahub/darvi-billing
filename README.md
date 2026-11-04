@@ -1,29 +1,51 @@
-# Darvi Billing v0.6 — CRM & Shipping
+# Darvi Billing
 
-Multi-business responsive web/PWA prototype for Darvi Group. **Local demonstration; not ready for use with real private records.**
+Darvi Billing is a multi-business billing prototype with a browser/PWA interface and a native Android application. It includes invoices and quotations, customer and product records, purchases, expenses, payroll, sales incentives, CRM leads, plot records, reports, legacy-data import, shipping labels, and Android Bluetooth receipt printing.
 
-## Business workspaces
-1. **Darvi Group Agri Tech** — nursery products, quotations, invoices, transport charges, 58mm / 80mm thermal print styles.
-2. **Darvi Genetics** — cows, semen bank, ghee; quotations, sales and transport charges.
-3. **Darvi Agri Developer LLP** — Vikshha plot register / land information for admin/superadmin in the prototype.
+## Run locally
 
-## New in v0.6
-- Mini CRM: manual leads (name, phone, email, interest, source), stages, follow-ups, notes, staff assignments, admin conversion to customers and lead CSV export.
-- Phone-only search at the business dashboard for customers, leads and invoice contacts.
-- Stable per-business customer codes, customer-specific invoice references in addition to globally distinct business invoice numbers.
-- Shipping address on invoices, labels printable 4×6 inches or A4 with four identical labels.
+Requirements: Node.js/npm. Install dependencies and start the local server:
 
-## Existing modules
-Purchases, expenses, salary rules, sales incentives, separate business account manager, sales reports, legacy CSV/JSON migration archive, stock and quotations (no stock change until invoicing).
+```sh
+npm ci
+npm start
+```
 
-## Open
-- Standalone HTML: open `Darvi_Billing_v0.6_Demo.html` in desktop/mobile browser.
-- Staff demo login: select a staff profile; use `1234` (shared demo PIN is not secure authentication).
-- Website staging: unpack `Darvi_Billing_v0.6_Website_Staging.zip` in a private, access-restricted test environment only. **It does not provide security or connect to any live website.**
+The server prints its local HTTP and HTTPS addresses. The HTTPS server uses development certificates under `.ssl/`; do not commit those private keys. Browser data is local to the browser and device.
 
-## Important safeguards
-- **Never use real private customer, bank, staff salary or land-registration data in this prototype.** It uses browser-local storage and client-side role checks.
-- Actual secure cloud sync, staff authentication, database authorization and printer Bluetooth bridging are still pending.
-- 58mm and shipping labels use browser printing; verify the physical printer and media settings.
+## Android build
 
-See `CRM_PHONE_SHIPPING_v06.md`, `PROJECT_STATUS.md`, `schema-planning.sql`, and `POS_58MM_PRINT_GUIDE.md`.
+Requirements: Android Studio/SDK, a compatible JDK, and Node.js/npm.
+
+```sh
+npm ci
+npm run build
+cd android
+.\gradlew.bat testDebugUnitTest assembleDebug
+```
+
+The web bundle in `www/`, Gradle outputs, and APKs are generated artifacts and are intentionally excluded from Git. Keep the Android source, Gradle wrapper, and project configuration under version control.
+
+## Tests
+
+```sh
+npm test
+```
+
+The Android unit tests are run with `.\gradlew.bat testDebugUnitTest` from `android/`.
+
+## Printing
+
+The Android app sends raster ESC/POS receipts over paired Bluetooth Classic printers. Receipts include the Darvi logo and website QR code, separated receipt sections, aligned amounts, and a separately flushed footer. Printer behavior varies by model; successful Bluetooth writes do not confirm physical printing. Verify the complete output on the target printer.
+
+Browser printing uses the browser/operating-system print dialog; select the appropriate paper and printer settings. Direct web Bluetooth printing is not guaranteed by the browser prototype.
+
+## Data and deployment warning
+
+This is a local prototype, not a production billing service. It has no authenticated backend or server-enforced business/staff access controls; browser roles and local data are not security boundaries. **Do not use real customer, financial, payroll, or land-registration data, and do not publish it as a live billing portal.** Production deployment requires a secured backend, authentication, tenant isolation, backups, auditability, and accountant-reviewed tax compliance.
+
+## Repository guide
+
+- [ARCHITECTURE.md](./ARCHITECTURE.md) — current application structure, boundaries, and production considerations.
+- [CHANGELOG.md](./CHANGELOG.md) — release history.
+- `schema-planning.sql` — non-production database planning sketch.

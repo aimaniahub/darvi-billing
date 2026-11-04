@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="theme-color" content="#254e37" />
-  <meta name="description" content="Darvi Billing – multi-business billing, phone lookup, lead CRM, quotations, shipping label printing and Vikshha plot registry prototype." />
-  <title>Darvi Billing — Prototype</title>
+  <meta name="description" content="Darvi Billing &ndash; multi-business billing, phone lookup, lead CRM, quotations, shipping label printing and Vikshha plot registry prototype." />
+  <title>Darvi Billing &mdash; Prototype</title>
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" type="image/png" href="assets/icon-192.png" />
   <link rel="stylesheet" href="styles.css" />
@@ -22,6 +23,10 @@
       <div class="sidebar-footer">Darvi Billing v0.6 • Prototype</div>
     </aside>
     <div class="content-shell">
+      <div id="mobile-ssl-banner" class="mobile-ssl-banner" style="display:none">
+        <span class="ssl-banner-text">📱 <strong>Seznik Bluetooth Printing:</strong> Switch to Secure Mode to print directly from Chrome without any apps.</span>
+        <a id="mobile-ssl-link" href="#" class="button button-small button-primary">🔒 Switch to Secure Mode (8443)</a>
+      </div>
       <header class="topbar"><div class="topbar-left"><button id="menuToggle" class="icon-btn mobile-only" aria-label="Open navigation">☰</button><div><div id="page-eyebrow" class="eyebrow">WORKSPACE OVERVIEW</div><h1 id="page-title">Dashboard</h1></div></div><div class="topbar-actions"><label class="business-label"><span>Business</span><select id="business-picker" class="field" aria-label="Select business"></select></label><button id="bt-printer-btn" class="bt-top-btn" data-action="bt-printer-manager" title="Seznik 2POS Bluetooth Printer"><span class="bt-dot"></span><span id="bt-printer-label">🖨️ Printer: Connect</span></button><span class="offline-chip"><span class="note-dot"></span> On-device demo</span><button class="button button-primary top-new" data-action="new-invoice">＋ New invoice</button><button id="account-info" class="user-avatar" title="Signed-in staff">DG</button><button class="signout-btn" data-action="signout" title="Sign out">Sign out</button></div></header>
       <main class="main-content" id="main-content"></main>
       <nav class="bottom-nav" id="bottom-nav" aria-label="Mobile navigation"></nav>
@@ -33,8 +38,9 @@
   <div id="print-sheet"></div>
   <input type="file" id="import-file" accept="application/json,.json" hidden />
   <input type="file" id="legacy-import-file" accept=".csv,.json,.txt,text/csv,application/json" hidden />
-  <script src="thermal-printer.js" defer></script>
-  <script src="legacy-vault.js" defer></script>
-  <script src="app.js" defer></script>
+  <script src="cleanter-printer.js" charset="UTF-8" defer></script>
+  <script src="thermal-printer.js" charset="UTF-8" defer></script>
+  <script src="legacy-vault.js" charset="UTF-8" defer></script>
+  <script src="app.js" charset="UTF-8" defer></script>
 </body>
 </html>

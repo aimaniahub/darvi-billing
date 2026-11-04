@@ -1,5 +1,9 @@
 # Darvi Billing release notes
 
+## Android v1.10 — 4 November 2026
+- Redesigned native thermal receipts with the Darvi logo and website QR code, scan label, clearer sections, right-aligned amounts and more line spacing.
+- Kept the thank-you footer as a separate raster print segment.
+
 ## v0.5 — 31 October 2026
 - Rename primary business to Darvi Group Agri Tech (Nursery) without changing storage key.
 - Darvi Genetics dedicated Cows, Semen Bank and Ghee starter catalogue.

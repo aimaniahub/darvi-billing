@@ -7,16 +7,22 @@ The browser saves a v2 root containing `businesses` keyed by three business IDs,
 ## Current vertical slice
 
 ```
-Android / Desktop browser
+Android native Java screens
         |
-  Responsive PWA UI
+ NativeStore / SQLite
         |
- Browser localStorage
+ Invoices + purchases + expenses + payroll + incentives + CRM + plots + reports
         |
- Invoices + purchases + expenses + payroll + incentives + reports + backup
+ Native Bluetooth SPP / ESC-POS printing
+
+Legacy Android WebView / desktop browser
+        |
+ Responsive PWA UI + browser localStorage
+        |
+ Manual JSON export / import for migration
 ```
 
-This is a working **single-device multi-business prototype**: no backend, no live user authentication, and no cross-device data sync. The goal of this version is validating workflows, invoice layouts and product/inventory concepts before integrating more complex infrastructure.
+The Android launcher uses native screens and SQLite. The prior Capacitor UI remains available as a legacy activity for data export and workflows not yet ported to the native implementation. Native backup import accepts the existing multi-business JSON shape. The app remains a **single-device multi-business prototype**: no backend, no live user authentication, and no cross-device data sync.
 
 ## Proposed production architecture
 
@@ -60,7 +66,7 @@ Android (Capacitor + ESC/POS plugin)    Windows (Tauri / browser)
 
 - A4/PDF: browser/system print available now.
 - 80 mm receipt: current print CSS can feed OS-managed thermal printer.
-- Direct Bluetooth: Android Capacitor plugin for supported ESC/POS devices; Bluetooth permission, reconnect, codepage and paper-width testing.
+- Direct Bluetooth: native Android Bluetooth Classic SPP. The chosen paired printer is saved and reused for receipts and labels. Invoice receipts use a raster logo/QR header, separated invoice sections, aligned item and total rows, and increased vertical spacing. The body is followed by a separately flushed raster thank-you footer and feed command, with the sender waiting between complete output writes; this works around printers that defer the end of one large raster job until another command arrives. The diagnostic test page retains raster output. Shipping labels use explicit ESC/POS PC437 text mode. Verify actual output on each supported printer because byte writes do not confirm physical printing and model-specific ESC/POS support can differ.
 - USB/LAN: use OS driver, native bridge or local printer service; validate actual printer models.
 
 ### Regulatory & accounting items to confirm before live launch
@@ -72,15 +78,9 @@ Android (Capacitor + ESC/POS plugin)    Windows (Tauri / browser)
 - Payments, refunds, UPI references and settlement/reconciliation as accounting events rather than just invoice counters.
 - Price lists, purchase costs, supplier purchases, expenses, profit-and-loss reporting and inventory valuation.
 
-## Suggested releases
+## Production readiness priorities
 
-**v0.2 — finished demo:** three local workspaces, purchase receipts, expenses, salary entries, attributed incentives, staff role previews and consolidated reports. All local only.
-
-**v0.3 — internal cloud:** hosted Postgres, secure login, Darvi organizations and business memberships, user permissions, two-way sync, audit log, encrypted backups, role-tested API and cloud reporting. Add attendance/approval ledgers.
-
-**v1.0 — Darvi deployment:** branded Android APK, Windows installer, payment reconciliation, customer accounts, staff sales incentives, GST/accountant export, tested hardware.
-
-**v2.0 — commercial multi-tenant SaaS:** self-service onboarding, tenant creation, subscriptions, usage limits, plans, payment gateway integration, isolated data and support tools.
+Before any live deployment, replace browser-local records and client-side roles with authenticated identities, server-enforced business isolation, transactional invoice and inventory updates, auditable financial events, encrypted backups, tested recovery, and accountant-reviewed tax workflows. Add offline synchronization only after the backend authorization and conflict tests pass. Validate each Android printer model and complete paper handling on physical devices.
 
 ## Database sketch
 

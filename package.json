@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "build": "node scripts/prepare-www.js && npx cap sync android",
+    "test": "node tests/test_printer_engine.js"
   },
   "keywords": [
     "billing",
@@ -14,5 +16,11 @@
     "seznik"
   ],
   "author": "Darvi Group",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@capacitor/android": "^8.6.0",
+    "@capacitor/cli": "^8.6.0",
+    "@capacitor/core": "^8.6.0",
+    "selfsigned": "^5.5.0"
+  }
 }

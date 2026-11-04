@@ -181,3 +181,26 @@
  body[data-print-format="seznik58"] .thermal-monospace-receipt{font-family:'Courier New',Courier,Consolas,monospace!important;font-size:9.5px!important;line-height:1.24!important;color:#000!important;white-space:pre!important;margin:0!important;padding:2mm 0!important;letter-spacing:-.2px;word-break:normal}
 }
 @media(max-width:768px){.print-hub-layout{grid-template-columns:1fr}}
+
+/* Mobile Secure Mode Banner for Direct Bluetooth */
+.mobile-ssl-banner {
+  background: #eef6f0;
+  border-bottom: 1px solid #c2dec9;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+  color: #174828;
+}
+.mobile-ssl-banner .ssl-banner-text {
+  flex: 1;
+  line-height: 1.4;
+}
+@media (max-width: 600px) {
+  .mobile-ssl-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
